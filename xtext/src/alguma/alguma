@@ -1,0 +1,30 @@
+generate alguma "http://www.ufscar.br/dc/compiladores/alguma/Alguma"
+
+Programa : ':' 'DECLARACOES' (declaracoes+=Declaracao)+ ':' 'ALGORITMO' (comandos+=Comando)+;
+Declaracao : name=ID ':' tipo=TipoVar;
+ExpressaoAritmetica : termo1=TermoAritmetico outrosTermos+=OutroTermoAritmetico*;
+OutroTermoAritmetico : operador=OpArit1 termo=TermoAritmetico;
+TermoAritmetico : fator1=FatorAritmetico outrosFatores+=OutroFatorAritmetico*;
+OutroFatorAritmetico : operador=OpArit2 fator=FatorAritmetico;
+FatorAritmetico : FatorNumero | FatorVariavel | FatorSubExpressao;
+FatorNumero: numero=INT;
+FatorVariavel: variavel=[Declaracao];
+FatorSubExpressao: '(' expressao=ExpressaoAritmetica ')';
+ExpressaoRelacional : termo1=TermoRelacional outrosTermos+=OutroTermoRelacional*;
+OutroTermoRelacional : operador=OpBool termo=TermoRelacional;
+TermoRelacional : TermoComparacaoRelacional | TermoSubExpressaoRelacional;
+TermoComparacaoRelacional: exp1=ExpressaoAritmetica opRel=OpRel exp2=ExpressaoAritmetica;
+TermoSubExpressaoRelacional: '[' expRel=ExpressaoRelacional ']';
+Comando : ComandoAtribuicao | ComandoEntrada | ComandoSaida | ComandoCondicao | ComandoRepeticao | SubAlgoritmo;
+ComandoAtribuicao : 'ATRIBUIR' exp=ExpressaoAritmetica 'A' variavel=[Declaracao];
+ComandoEntrada : 'LER' variavel=[Declaracao];
+ComandoSaida : 'IMPRIMIR' variavel=[Declaracao];
+ComandoCondicao : 'SE' exp=ExpressaoRelacional 'ENTAO' cmd1=Comando ('SENAO' cmd2=Comando)?;
+ComandoRepeticao : 'ENQUANTO' exp=ExpressaoRelacional cmd=Comando;
+SubAlgoritmo : 'INICIO' (comandos+=Comando)+ 'FIM';
+
+TipoVar : 'INTEIRO' | 'REAL';
+OpArit1 : '+' | '-';
+OpArit2 : '*' | '/';
+OpRel : '>' | '>=' | '<' | '<=' | '<>' | '=';
+OpBool	 : 'E' | 'OU';

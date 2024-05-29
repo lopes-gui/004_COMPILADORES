@@ -1,0 +1,35 @@
+:DECLARACOES
+numero1:INTEIRO
+numero2:INTEIRO
+numero3:INTEIRO
+aux:INTEIRO
+
+:ALGORITMO
+% Coloca 3 números em ordem crescente
+LER numero1
+LER numero2
+LER numero3
+SE numero1 > numero2 ENTAO
+   INICIO
+      ATRIBUIR numero2 A aux
+      ATRIBUIR numero1 A numero2
+      ATRIBUIR aux A numero1
+   FIM 
+FIMSE
+SE numero1 > numero3 ENTAO
+   INICIO
+      ATRIBUIR numero3 A aux
+      ATRIBUIR numero1 A numero3
+      ATRIBUIR aux A numero1
+   FIM
+FIMSE
+SE numero2 > numero3 ENTAO
+   INICIO
+      ATRIBUIR numero3 A aux
+      ATRIBUIR numero2 A numero3
+      ATRIBUIR aux A numero2
+   FIM
+FIMSE
+IMPRIMIR numero1
+IMPRIMIR numero2
+IMPRIMIR numero3

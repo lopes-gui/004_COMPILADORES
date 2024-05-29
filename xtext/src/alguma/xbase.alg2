@@ -1,0 +1,13 @@
+grammar br.ufscar.dc.compiladores.alguma2.Alguma2 with org.eclipse.xtext.xbase.Xbase
+
+generate alguma2 "http://www.ufscar.br/dc/compiladores/alguma2/Alguma2"
+
+import "http://www.eclipse.org/xtext/xbase/Xbase"
+
+Programa : ':' 'DECLARACOES' (declaracoes+=Declaracao)+ ':' 'ALGORITMO' algoritmo=Algoritmo;
+Algoritmo returns XExpression:
+	{XBlockExpression}
+	(expressions+=XExpressionOrVarDeclaration ';'?)*
+;
+Declaracao : nome=ID ':' tipo=TipoVar;
+TipoVar : 'INTEIRO' | 'REAL';
